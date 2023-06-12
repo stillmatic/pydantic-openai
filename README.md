@@ -15,5 +15,16 @@ pip install pydantic-openai
 ```
 
 ```python
-from pydantic_openai import ChatCompletionRequest
+import openai
+from pydantic_openai import ChatCompletionRequest, GPT3Models, ChatCompletionMessage
+
+req = ChatCompletionRequest(
+    model=GPT3Models.GPT3Dot5Turbo,
+    messages=[
+        ChatCompletionMessage(role="user", content="What's the capital of France?"),
+    ],
+    max_tokens=128,
+)
+resp = openai.ChatCompletion.create(**req.dict(exclude_none=True))
+print(resp)
 ```
